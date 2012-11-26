@@ -11,11 +11,16 @@
         <Button android:background="@android:color/holo_green_light"
                 android:layout_height="fill_parent"
                 android:layout_width="fill_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/b1"
+                />
         <Button android:background="@android:color/holo_blue_light"
                 android:layout_height="fill_parent"
                 android:layout_width="fill_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/b2"/>
     </LinearLayout>
     <LinearLayout android:orientation="horizontal"
                   android:layout_width="fill_parent"
@@ -24,10 +29,14 @@
         <Button android:background="@android:color/holo_purple"
                 android:layout_height="fill_parent"
                 android:layout_width="fill_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/b3"/>
         <Button android:background="@android:color/holo_red_light"
                 android:layout_height="fill_parent"
                 android:layout_width="fill_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:clickable="true"
+                android:id="@+id/b4"/>
     </LinearLayout>
 </LinearLayout>
