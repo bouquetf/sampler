@@ -7,38 +7,52 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyActivity extends Activity {
-    MediaPlayer mediaPlayer;
-    int button;
+    List<MediaPlayer> mediaPlayers;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mediaPlayer = new MediaPlayer();
+        mediaPlayers = new ArrayList<MediaPlayer>(4);
+        for (int i = 0; i <= 3; i ++) {
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            String path = "/storage/sdcard0/Documents/Sampler/B"+i+".mp3";
+            try {
+                mediaPlayer.setDataSource(path);
+                mediaPlayer.prepare();
+            } catch (IOException ignored) {
+            }
+            mediaPlayers.add(mediaPlayer);
+
+        }
+
         setContentView(R.layout.main);
-        button = 0;
 
         findViewById(R.id.b1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                button = 1;
+                readMP3(0);
             }
         });
         findViewById(R.id.b2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                button = 2;
+                readMP3(1);
             }
         });
         findViewById(R.id.b3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                button = 3;
+                readMP3(2);
             }
         });
         findViewById(R.id.b4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                button = 4;
+                readMP3(3);
             }
         });
 
@@ -48,15 +62,8 @@ public class MyActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, 1, Menu.NONE, "Associate songs");
-        menu.add(0, 2, Menu.NONE, "Button " + button);
-        menu.add(0, 3, Menu.NONE, "Quitter");
+        menu.add(0, 2, Menu.NONE, "Quit");
 
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.getItem(1).setTitle("Button "+ button);
         return true;
     }
 
@@ -66,11 +73,25 @@ public class MyActivity extends Activity {
             case 1:
                 // TODO: reload files from a predefined directory
                 break;
-            case 3:
+            case 2:
                 finish();
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onPause() {
+        finish();
+    }
+
+    private void readMP3(int buttonName) {
+        MediaPlayer mediaPlayer = mediaPlayers.get(buttonName);
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        } else {
+            mediaPlayer.start();
+        }
     }
 
     //TODO: get which button has been clicked
